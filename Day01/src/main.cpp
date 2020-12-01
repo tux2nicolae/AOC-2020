@@ -27,12 +27,28 @@ using namespace std;
 
 int main()
 {
-  // ifstream in("..\\..\\Day01\\src\\Day01.in");
+  ifstream in("..\\..\\Day01\\src\\Day01.in");
   // ofstream out("..\\..\\Day01\\src\\Day01.out");
 
-  // FStreamReader reader(in);
-  // vector<int> v = reader.ReadVector();
- 
+  FStreamReader reader(in);
+  vector<int> v = reader.ReadVector();
+
+  sort(begin(v), end(v));
+
+  int s = 0;
+  for(auto & x : v)
+  {
+    for (auto& y : v)
+    {
+      for (auto& z : v)
+      {
+        if (x + y + z == 2020)
+          s = x * y * z;
+      }
+    }
+  }
+
+  cout << s;
 
   // out
   // FStreamWriter writer(out);
