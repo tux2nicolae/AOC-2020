@@ -1,2 +1,2 @@
-# AOC-2019
-Advent of Code (2019)
+# AOC-2020
+Advent of Code (2020)
