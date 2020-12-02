@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AOCLib", "..\AOCLib\win\AOC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_History", "_History", "{1C2E83C2-9D0D-45D0-8B79-C572AF725F05}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day02", "..\Day02\win\Day02.vcxproj", "{EDD47180-056D-444F-BA4E-FBD19C293BCB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -33,9 +35,20 @@ Global
 		{C1B79C31-D547-4397-8FF0-13502A8ED612}.Release|x64.Build.0 = Release|x64
 		{C1B79C31-D547-4397-8FF0-13502A8ED612}.Release|x86.ActiveCfg = Release|Win32
 		{C1B79C31-D547-4397-8FF0-13502A8ED612}.Release|x86.Build.0 = Release|Win32
+		{EDD47180-056D-444F-BA4E-FBD19C293BCB}.Debug|x64.ActiveCfg = Debug|x64
+		{EDD47180-056D-444F-BA4E-FBD19C293BCB}.Debug|x64.Build.0 = Debug|x64
+		{EDD47180-056D-444F-BA4E-FBD19C293BCB}.Debug|x86.ActiveCfg = Debug|Win32
+		{EDD47180-056D-444F-BA4E-FBD19C293BCB}.Debug|x86.Build.0 = Debug|Win32
+		{EDD47180-056D-444F-BA4E-FBD19C293BCB}.Release|x64.ActiveCfg = Release|x64
+		{EDD47180-056D-444F-BA4E-FBD19C293BCB}.Release|x64.Build.0 = Release|x64
+		{EDD47180-056D-444F-BA4E-FBD19C293BCB}.Release|x86.ActiveCfg = Release|Win32
+		{EDD47180-056D-444F-BA4E-FBD19C293BCB}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{14D7BA8B-66AE-48A7-8A4A-ABB8F952398A} = {1C2E83C2-9D0D-45D0-8B79-C572AF725F05}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ADB9513D-63A5-48C4-8B51-4885B03BC37F}
