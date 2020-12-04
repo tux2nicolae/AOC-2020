@@ -19,12 +19,7 @@
 
 using namespace std;
 
-#include "../../AOCLib/src/Algorithm.h"
-#include "../../AOCLib/src/FStreamReader.h"
-#include "../../AOCLib/src/FStreamWriter.h"
-#include "../../AOCLib/src/Math.h"
-#include "../../AOCLib/src/Time.h"
-
+#include "../../AOCLib/src/AOCLib.h"
 
 class Passport
 {

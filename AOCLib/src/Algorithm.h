@@ -15,9 +15,6 @@ namespace AOC
 
   tuple<int, int, int> SubsequenceOfLargestSum(const vector<int> & sequence);
 
-  vector<string> Explode(const string & str, char separator);
-  int RegexMatchInt(const string& str, const string& regexStr = "(.*)");
-
   long long MultiplyModulo(long long a, long long b, long long modulo);
   vector<vector<long long>> MultiplyMatrix(const vector<vector<long long>>& first,
     const vector<vector<long long>>& second, long long modulo);

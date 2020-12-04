@@ -124,29 +124,6 @@ tuple<int, int, int> AOC::SubsequenceOfLargestSum(const vector<int> & sequence)
   return make_tuple(smax, smaxbegin, smaxend);
 }
 
-std::vector<std::string> AOC::Explode(const std::string & str, char separator)
-{
-  std::vector<std::string> result;
-
-  std::istringstream stream(str);
-  for (std::string token; std::getline(stream, token, separator); )
-  {
-    result.push_back(std::move(token));
-  }
-
-  return result;
-}
-
-int AOC::RegexMatchInt(const string& str, const string& regexStr)
-{
-  smatch match;
-  regex_match(str, match, regex(regexStr));
-  assert(match.size() == 1);
-
-  // 0
-  return stoi(match[0]);
-}
-
 long long AOC::MultiplyModulo(long long a, long long b, long long modulo)
 {
 	long long res = 0;

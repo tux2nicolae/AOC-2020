@@ -22,12 +22,12 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="..\src\Parse.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Algorithm.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Examples.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\src\FStreamReader.h">
@@ -43,5 +43,10 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="..\src\Parse.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\AOCLib.h" />
+    <ClInclude Include="..\src\Examples.h" />
   </ItemGroup>
 </Project>

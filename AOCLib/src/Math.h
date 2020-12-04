@@ -8,18 +8,16 @@ namespace AOC
 {
   struct Point
   {
+    Point();
+    Point(int x, int y);
+    Point(int x, int y, int z);
+
+    bool operator==(const Point& second) const;
+    bool operator<(const Point& second) const;
+
     int x{ 0 };
     int y{ 0 };
-
-    bool operator==(const Point& second) const
-    {
-      return tie(x, y) == tie(second.x, second.y);
-    };
-
-    bool operator<(const Point& second) const
-    {
-      return tie(x, y) < tie(second.x, second.y);
-    };
+    int z{ 0 };
   };
 
   long long Abs(long long number);

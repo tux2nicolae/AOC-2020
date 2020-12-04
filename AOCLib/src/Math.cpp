@@ -5,6 +5,34 @@
 #include "pch.h"
 #include "Math.h"
 
+//------------------------------------------------------------
+
+inline AOC::Point::Point()
+{
+}
+
+inline AOC::Point::Point(int x, int y)
+  : x(x), y(y)
+{
+}
+
+inline AOC::Point::Point(int x, int y, int z)
+  : x(x), y(y), z(z)
+{
+}
+
+bool AOC::Point::operator==(const Point& second) const
+{
+  return tie(x, y, z) == tie(second.x, second.y, second.z);
+};
+
+bool AOC::Point::operator<(const Point& second) const
+{
+  return tie(x, y, z) < tie(second.x, second.y, second.z);
+};
+
+//------------------------------------------------------------
+
 long long AOC::Abs(long long number)
 {
   return number > 0 ? number : -number;
