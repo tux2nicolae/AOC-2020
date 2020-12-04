@@ -107,7 +107,7 @@ int main()
   // ofstream out("..\\..\\Day04\\src\\Day04.out");
 
   FStreamReader reader(in);
-  vector<string> v = reader.ReadVectorOfWords();
+  vector<string> v = reader.ReadLines();
 
   int validPassports = 0;
 

@@ -11,7 +11,31 @@ FStreamReader::FStreamReader(ifstream & aIn)
   assert(mFileStream.good());
 }
 
-vector<int> FStreamReader::ReadLineAsVectorOfDigits()
+bool FStreamReader::IsValid() 
+{ 
+  return mFileStream.good(); 
+}
+
+vector<int> FStreamReader::ReadLineAsNumbers()
+{
+  vector<int> ret;
+
+  string line;
+  if (!getline(mFileStream, line))
+    return ret;
+
+  std::istringstream ss(line);
+
+  int n = 0;
+  while (ss >> n)
+  {
+    ret.push_back(n);
+  }
+
+  return ret;
+}
+
+vector<int> FStreamReader::ReadLineAsDigits()
 {
   vector<int> ret;
 
@@ -31,7 +55,25 @@ vector<int> FStreamReader::ReadLineAsVectorOfDigits()
   return ret;
 }
 
-vector<string> FStreamReader::ReadVectorOfWords()
+vector<string> FStreamReader::ReadLineAsWords()
+{
+  vector<string> ret;
+
+  string line;
+  if (!getline(mFileStream, line))
+    return ret;
+
+  std::istringstream ss(line);
+
+  string word;
+  while (ss >> word)
+    ret.push_back(word);
+
+  return ret;
+}
+
+
+vector<string> FStreamReader::ReadLines()
 {
   vector<string> ret;
 
@@ -42,7 +84,8 @@ vector<string> FStreamReader::ReadVectorOfWords()
   return ret;
 }
 
-vector<vector<int>> FStreamReader::ReadMatrix()
+
+vector<vector<int>> FStreamReader::ReadDataAsMatrixOfNumbers()
 {
   vector<vector<int>> ret;
 
@@ -64,13 +107,13 @@ vector<vector<int>> FStreamReader::ReadMatrix()
   return ret;
 }
 
-vector<std::vector<int>> FStreamReader::ReadMatrixOfDigits()
+vector<std::vector<int>> FStreamReader::ReadDataAsMatrixOfDigits()
 {
   vector<std::vector<int>> ret;
 
   while (mFileStream.good())
   {
-    auto lineOfDigits = ReadLineAsVectorOfDigits();
+    auto lineOfDigits = ReadLineAsDigits();
     if (!lineOfDigits.empty())
       ret.push_back(lineOfDigits);
   }
@@ -78,33 +121,16 @@ vector<std::vector<int>> FStreamReader::ReadMatrixOfDigits()
   return ret;
 }
 
-std::vector<std::vector<string>> FStreamReader::ReadMatrixOfWords()
+std::vector<std::vector<string>> FStreamReader::ReadDataAsMatrixOfWords()
 {
   vector<std::vector<string>> ret;
 
   while (mFileStream.good())
   {
-    auto lineOfWords = ReadLineAsVectorOfWords();
+    auto lineOfWords = ReadLineAsWords();
     if (!lineOfWords.empty())
       ret.push_back(lineOfWords);
   }
-
-  return ret;
-}
-
-vector<string> FStreamReader::ReadLineAsVectorOfWords()
-{
-  vector<string> ret;
-
-  string line;
-  if (!getline(mFileStream, line))
-    return ret;
-
-  std::istringstream ss(line);
-
-  string word;
-  while (ss >> word)
-    ret.push_back(word);
 
   return ret;
 }

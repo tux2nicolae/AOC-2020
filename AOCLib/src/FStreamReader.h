@@ -1,7 +1,7 @@
 #pragma once
 
 /**
- * Advent of code 2019
+ * Advent of code 2020
  * @author : Nicolae Telechi
  */
 class FStreamReader
@@ -12,8 +12,27 @@ public:
    */
   FStreamReader(ifstream & aIn);
 
+  /**
+   * @returns true if there is more data to read
+   */
+  bool IsValid();
+
+  //-----------------------------------------------------------
+
+  vector<int> ReadLineAsNumbers();
+  vector<int> ReadLineAsDigits();
+  vector<string> ReadLineAsWords();
+
+  vector<string> ReadLines();
+
+  vector<vector<int>> ReadDataAsMatrixOfNumbers();
+  vector<vector<int>> ReadDataAsMatrixOfDigits();
+  vector<vector<string>> ReadDataAsMatrixOfWords();
+
+  //-----------------------------------------------------------
+
   template<typename T = int>
-  vector<T> ReadVector()
+  vector<T> ReadDataAs()
   {
     vector<T> ret;
 
@@ -25,7 +44,7 @@ public:
   }
 
   template<typename T = int>
-  vector<T> ReadVectorSeparatedByChar()
+  vector<T> ReadDataSeparatedByCharAs()
   {
     vector<T> ret;
     while (mFileStream.good())
@@ -39,14 +58,6 @@ public:
 
     return ret;
   }
-
-  vector<int> ReadLineAsVectorOfDigits();
-  vector<string> ReadVectorOfWords();
-  vector<string> ReadLineAsVectorOfWords();
-
-  vector<vector<int>> ReadMatrix();
-  vector<vector<int>> ReadMatrixOfDigits();
-  vector<vector<string>> ReadMatrixOfWords();
 
 private:
   ifstream & mFileStream;

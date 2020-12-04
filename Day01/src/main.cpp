@@ -31,7 +31,7 @@ int main()
   // ofstream out("..\\..\\Day01\\src\\Day01.out");
 
   FStreamReader reader(in);
-  vector<int> v = reader.ReadVector();
+  vector<int> v = reader.ReadDataAs<int>();
 
   sort(begin(v), end(v));
 

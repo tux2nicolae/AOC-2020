@@ -31,9 +31,7 @@ int main()
   // ofstream out("..\\..\\Day03\\src\\Day03.out");
 
   FStreamReader reader(in);
-  vector<string> v = reader.ReadVectorOfWords();
-
-
+  vector<string> v = reader.ReadLines();
 
   int s0 = 0;
   for (int i = 0, j = 0; i < v.size(); i++, j += 1)
