@@ -15,6 +15,15 @@ namespace AOC
     bool operator==(const Point& second) const;
     bool operator<(const Point& second) const;
 
+    Point GetLeft();
+    Point GetRight();
+    Point GetTop();
+    Point GetBottom();
+
+    Point GetNeighbour(const char direction);
+    vector<Point> GetDirectNeighbours();
+    vector<Point> GetAllNeighbours();
+
     int x{ 0 };
     int y{ 0 };
     int z{ 0 };
