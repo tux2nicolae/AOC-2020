@@ -26,6 +26,81 @@ using namespace std;
 #include "../../AOCLib/src/Time.h"
 
 
+class Passport
+{
+public:
+  void AddField(const string& name, const string& value)
+  {
+    fields[name] = value;
+  }
+
+  bool IsValid()
+  {
+    int fieldsNumber = 0;
+    for (const string& fieldName : { "byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid" })
+    {
+      if (fields.find(fieldName) != fields.end())
+      {
+        fieldsNumber++;
+      }
+    }
+
+    if (fieldsNumber != 7)
+      return false;
+
+    if (!(stoi(fields["byr"]) >= 1920 && stoi(fields["byr"]) <= 2002))
+      return false;
+
+    if (!(stoi(fields["iyr"]) >= 2010 && stoi(fields["iyr"]) <= 2020))
+      return false;
+
+    if (!(stoi(fields["eyr"]) >= 2020 && stoi(fields["eyr"]) <= 2030))
+      return false;
+
+    string height = fields["hgt"];
+    if (height.find("cm") != string::npos)
+    {
+      height.pop_back();
+      height.pop_back();
+
+      int hgt = stoi(height);
+      if (!(hgt >= 150 && hgt <= 193))
+        return false;
+    }
+    else
+    {
+      height.pop_back();
+      height.pop_back();
+
+      int hgt = stoi(height);
+      if (!(hgt >= 59 && hgt <= 76))
+        return false;
+    }
+
+    smatch matchHcl;
+    regex_match(fields["hcl"], matchHcl, regex("#([a-f0-9]{6})$"));
+    if (matchHcl.size() == 0)
+      return false;
+
+
+    smatch matchEcl;
+    regex_match(fields["ecl"], matchEcl, regex("amb|blu|brn|gry|grn|hzl|oth"));
+    if (matchEcl.size() == 0)
+      return false;
+
+    smatch matchPid;
+    regex_match(fields["pid"], matchPid, regex("([0-9]{9})$"));
+    if (matchPid.size() == 0)
+      return false;
+
+    return true;
+  };
+
+private:
+  unordered_map<string, string> fields;
+};
+
+
 int main()
 {
   ifstream in("..\\..\\Day04\\src\\Day04.in");
@@ -34,125 +109,28 @@ int main()
   FStreamReader reader(in);
   vector<string> v = reader.ReadVectorOfWords();
 
-  int total = 0;
+  int validPassports = 0;
 
-  unordered_map<string, string> passwordMap;
+  Passport passport;
   for (const auto& line : v)
   {
     if (line.empty())
     {
-      int s = 0;
-      for (const string& test : { "byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid" })
-      {
-        if (passwordMap.find(test) != passwordMap.end())
-        {
-          s++;
-        }
-      }
+      if(passport.IsValid())
+        validPassports++;
 
-      if (s != 7)
-      {
-        passwordMap.clear();
-        continue;
-      }
-
-      if (!(stoi(passwordMap["byr"]) >= 1920 && stoi(passwordMap["byr"]) <= 2002))
-      {
-        passwordMap.clear();
-        continue;
-      }
-
-      if (!(stoi(passwordMap["iyr"]) >= 2010 && stoi(passwordMap["iyr"]) <= 2020))
-      {
-        passwordMap.clear();
-        continue;
-      }
-
-      if (!(stoi(passwordMap["eyr"]) >= 2020 && stoi(passwordMap["eyr"]) <= 2030))
-      {
-        passwordMap.clear();
-        continue;
-      }
-
-      string height = passwordMap["hgt"];
-      if (height.find("cm") != string::npos)
-      {
-        height.pop_back();
-        height.pop_back();
-
-        int hgt = stoi(height);
-        if (!(hgt >= 150 && hgt <= 193))
-        {
-          passwordMap.clear();
-          continue;
-        }
-      }
-      else
-      {
-        height.pop_back();
-        height.pop_back();
-
-        int hgt = stoi(height);
-        if (!(hgt >= 59 && hgt <= 76))
-        {
-          passwordMap.clear();
-          continue;
-        }
-      }
-
-      smatch match;
-      regex_match(passwordMap["hcl"], match, regex("#([a-f0-9]{6})$"));
-      if (match.size() == 0)
-      {
-        passwordMap.clear();
-        continue;
-      }
-
-      string ecl = passwordMap["ecl"];
-      if (!(ecl == "amb"
-        || ecl == "blu"
-        || ecl == "brn"
-        || ecl == "gry"
-        || ecl == "grn"
-        || ecl == "hzl"
-        || ecl == "oth"))
-      {
-        passwordMap.clear();
-        continue;
-      }
-
-      smatch match1;
-      regex_match(passwordMap["pid"], match1, regex("([0-9]{9})$"));
-      if (match1.size() == 0)
-      {
-        passwordMap.clear();
-        continue;
-      }
-        
-      total++;
-
-      passwordMap.clear();
+      passport = Passport();
       continue;
     }
 
-
-
     auto tokens = AOC::Explode(line, ' ');
-
     for (const auto& token : tokens)
     {
       auto passwordPair = AOC::Explode(token, ':');
-      passwordMap[passwordPair[0]] = passwordPair[1];
+      passport.AddField(passwordPair[0], passwordPair[1]);
     }
   }
 
-  // sort(begin(v), end(v));
-
-  cout << total;
-
-  // out
-  // FStreamWriter writer(out);
-  // writer.WriteVector(v);
-
+  cout << validPassports;
   return 0;
 }
