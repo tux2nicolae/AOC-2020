@@ -18,7 +18,7 @@ std::vector<std::string> AOC::Explode(const std::string& str, char separator)
   return result;
 }
 
-int AOC::RegexMatchInt(const string& str, const string& regexStr)
+int AOC::ExtractInt(const string& str, const string& regexStr)
 {
   smatch match;
   regex_match(str, match, regex(regexStr));
@@ -27,3 +27,13 @@ int AOC::RegexMatchInt(const string& str, const string& regexStr)
   // 0
   return stoi(match[0]);
 }
+
+
+vector<string> AOC::ExtractMatches(const string& str, const string& regexStr)
+{
+  smatch matches;
+  regex_match(str, matches, regex(regexStr));
+
+  return { matches.begin(), matches.end() };
+}
+

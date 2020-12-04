@@ -1,7 +1,7 @@
 #pragma once
 
 /**
- * Advent of code 2019
+ * Advent of code 2020
  * @author : Nicolae Telechi
  */
 namespace AOC
@@ -11,21 +11,18 @@ namespace AOC
   long long Fibonaci(long long n, long long modulo);
   vector<bool> Eratosthenes(size_t n);
 
-  pair<vector<vector<int>>, set<int>> Lee(const vector<Point> & aCoordonates, vector<vector<int>> & aMap);
-
+  /**
+   * @returns length, begin index, end index
+   */
   tuple<int, int, int> SubsequenceOfLargestSum(const vector<int> & sequence);
+  vector<int> GetPartialSums(const vector<int>& sequence);
 
+  pair<vector<vector<int>>, set<int>> Lee(const vector<Point>& aCoordonates, vector<vector<int>>& aMap);
+
+  /**
+   * Huge numbers multiplication
+   */
   long long MultiplyModulo(long long a, long long b, long long modulo);
   vector<vector<long long>> MultiplyMatrix(const vector<vector<long long>>& first,
     const vector<vector<long long>>& second, long long modulo);
-
-  //--------------------------------------------------------------------------
-  // implementation details
-
-  namespace detail
-  {
-    vector<int> GetPartialSums(const vector<int> & sequence);
-
-    vector<vector<long long>> FibonaciMatrix(long long n, long long modulo);
-  }
 }

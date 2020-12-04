@@ -1,10 +1,20 @@
 /**
- * Advent of code 2019
+ * Advent of code 2020
  * @author : Nicolae Telechi
  */
 #include "pch.h"
 #include "Algorithm.h"
 #include "Math.h"
+
+//--------------------------------------------------------------------------
+// implementation details
+
+namespace detail
+{
+  vector<vector<long long>> FibonaciMatrix(long long n, long long modulo);
+}
+
+//--------------------------------------------------------------------------
 
 long long AOC::Fibonaci(long long n, long long modulo)
 {
@@ -89,6 +99,17 @@ pair<vector<vector<int>>, set<int>> AOC::Lee(const vector<Point> & aCoordonates,
   }
 
   return { distances, infinitePoints };
+}
+
+vector<int> GetPartialSums(const vector<int>& sequence)
+{
+  vector<int> sums;
+  sums.reserve(sequence.size());
+
+  std::partial_sum(sequence.begin(), sequence.end(),
+    back_inserter(sums));
+
+  return sums;
 }
 
 tuple<int, int, int> AOC::SubsequenceOfLargestSum(const vector<int> & sequence)
@@ -179,17 +200,6 @@ vector<vector<long long>> AOC::MultiplyMatrix(const vector<vector<long long>> & 
 
 namespace AOC::detail
 {
-  vector<int> GetPartialSums(const vector<int>& sequence)
-  {
-    vector<int> sums;
-    sums.reserve(sequence.size());
-
-    std::partial_sum(sequence.begin(), sequence.end(),
-      back_inserter(sums));
-
-    return sums;
-  }
-
   vector<vector<long long>> FibonaciMatrix(long long n, long long modulo)
   {
     static const vector<vector<long long>> kFibonaci{ {0, 1}, {1, 1} };
