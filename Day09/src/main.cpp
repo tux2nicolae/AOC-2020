@@ -7,11 +7,13 @@
 #include <string>
 #include <memory>
 #include <algorithm>
+#include <array>
 #include <vector>
 #include <sstream>
 #include <fstream>
-#include <map>
 #include <set>
+#include <map>
+#include <unordered_set>
 #include <unordered_map>
 #include <optional>
 #include <numeric>
@@ -58,20 +60,17 @@ int main()
   vector<long long> sums = AOC::GetPartialSums(numbers);
   vector<long long> range;
 
-  for (int i = 0; i < numbers.size(); ++i)
+  for(const auto [i, j] : AOC::GenerateIndexCombinations<2>(numbers.size()))
   {
-    for (int j = i + 1; j < numbers.size(); ++j)
+    if (sums[j] - sums[i] == part1Number)
     {
-      if (sums[j] - sums[i] == part1Number)
-      {
-        range = { begin(numbers) + i + 1, begin(numbers) + j };
-        break;
-      }
-    }
-
-    if (!range.empty())
+      range = { begin(numbers) + i + 1, begin(numbers) + j };
       break;
+    }
   }
+
+  if (range.empty())
+    return 0;
 
   sort(begin(range), end(range));
   cout << range.front() + range.back();

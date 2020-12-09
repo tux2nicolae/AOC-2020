@@ -9,7 +9,7 @@
 //--------------------------------------------------------------------------
 // implementation details
 
-namespace detail
+namespace AOC::detail
 {
   vector<vector<long long>> FibonaciMatrix(long long n, long long modulo);
 }
@@ -198,7 +198,7 @@ vector<vector<long long>> AOC::MultiplyMatrix(const vector<vector<long long>> & 
   return temp;
 }
 
-namespace detail
+namespace AOC::detail
 {
   vector<vector<long long>> FibonaciMatrix(long long n, long long modulo)
   {
