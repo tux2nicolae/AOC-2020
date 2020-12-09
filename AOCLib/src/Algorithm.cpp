@@ -198,7 +198,7 @@ vector<vector<long long>> AOC::MultiplyMatrix(const vector<vector<long long>> & 
   return temp;
 }
 
-namespace AOC::detail
+namespace detail
 {
   vector<vector<long long>> FibonaciMatrix(long long n, long long modulo)
   {
@@ -216,11 +216,11 @@ namespace AOC::detail
     auto result = FibonaciMatrix(n / 2, modulo);
     if (n % 2 == 0)
     {
-      return MultiplyMatrix(result, result, modulo);
+      return AOC::MultiplyMatrix(result, result, modulo);
     }
     else
     {
-      return MultiplyMatrix(MultiplyMatrix(result, result, modulo), kFibonaci, modulo);
+      return AOC::MultiplyMatrix(AOC::MultiplyMatrix(result, result, modulo), kFibonaci, modulo);
     }
   }
 }

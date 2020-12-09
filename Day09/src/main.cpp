@@ -27,8 +27,7 @@ int main()
   // ofstream out("..\\..\\Day09\\src\\_Output.out");
 
   FStreamReader reader(in);
-
-  vector<long long> numbers = reader.ReadDataAs<long long>();
+  auto numbers = reader.ReadDataAs<long long>();
 
   //-----------------------------------
 
@@ -54,31 +53,27 @@ int main()
 
   cout << part1Number << endl << endl;
 
-  vector<long long> sums;
-  sums.reserve(numbers.size());
+  //-----------------------------------
 
-  std::partial_sum(numbers.begin(), numbers.end(),
-    back_inserter(sums));
-
+  vector<long long> sums = AOC::GetPartialSums(numbers);
   vector<long long> range;
+
   for (int i = 0; i < numbers.size(); ++i)
   {
     for (int j = i + 1; j < numbers.size(); ++j)
     {
       if (sums[j] - sums[i] == part1Number)
       {
-        for(int k = i + 1; k<=j; k++)
-          range.push_back(numbers[k]);
-
-        i = numbers.size();
-        j = numbers.size();
+        range = { begin(numbers) + i + 1, begin(numbers) + j };
         break;
       }
     }
+
+    if (!range.empty())
+      break;
   }
 
   sort(begin(range), end(range));
-
   cout << range.front() + range.back();
 
   return 0;
