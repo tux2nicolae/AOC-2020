@@ -15,7 +15,7 @@ namespace AOC
    * @returns length, begin index, end index
    */
   tuple<int, int, int> SubsequenceOfLargestSum(const vector<int> & sequence);
-  vector<int> GetPartialSums(const vector<int>& sequence);
+  vector<long long> GetPartialSums(const vector<long long>& sequence);
 
   pair<vector<vector<int>>, set<int>> Lee(const vector<Point>& aCoordonates, vector<vector<int>>& aMap);
 

@@ -101,9 +101,9 @@ pair<vector<vector<int>>, set<int>> AOC::Lee(const vector<Point> & aCoordonates,
   return { distances, infinitePoints };
 }
 
-vector<int> GetPartialSums(const vector<int>& sequence)
+vector<long long> AOC::GetPartialSums(const vector<long long>& sequence)
 {
-  vector<int> sums;
+  vector<long long> sums;
   sums.reserve(sequence.size());
 
   std::partial_sum(sequence.begin(), sequence.end(),
