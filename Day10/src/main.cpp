@@ -33,9 +33,6 @@ int main()
 
   std::sort(begin(lines), end(lines));
 
-  unordered_map<int, bool> exists;
-  exists[0] = true;
-
   //-----------------------------------
 
   int oneDifference = 0;
@@ -44,8 +41,6 @@ int main()
   int previous = 0;
   for(auto adapter : lines)
   {
-    exists[adapter] = true;
-
     if (adapter - previous == 1)
       oneDifference++;
 
@@ -60,18 +55,18 @@ int main()
   //-----------------------------------
 
   unordered_map<int, long long> arrangments;
+  arrangments[0] = 1;
 
-  arrangments[0] = arrangments[-1] = arrangments[-2] = 1;
   for (auto adapter : lines)
   {
     long long sum = 0;
-    if (exists[adapter - 1])
+    if (arrangments.count(adapter - 1))
       sum += arrangments[adapter - 1];
 
-    if (exists[adapter - 2])
+    if (arrangments.count(adapter - 2))
       sum += arrangments[adapter - 2];
 
-    if (exists[adapter - 3])
+    if (arrangments.count(adapter - 3))
       sum += arrangments[adapter - 3];
 
     arrangments[adapter] = sum;
