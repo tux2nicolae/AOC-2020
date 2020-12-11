@@ -7,16 +7,16 @@
 
 //------------------------------------------------------------
 
-inline AOC::Point::Point()
+AOC::Point::Point()
 {
 }
 
-inline AOC::Point::Point(int x, int y)
+AOC::Point::Point(int x, int y)
   : x(x), y(y)
 {
 }
 
-inline AOC::Point::Point(int x, int y, int z)
+AOC::Point::Point(int x, int y, int z)
   : x(x), y(y), z(z)
 {
 }
