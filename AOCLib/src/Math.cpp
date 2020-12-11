@@ -71,17 +71,30 @@ AOC::Point AOC::Point::GetNeighbour(const char direction) {
   case 't':
   case 'N':
   case 'n':
+  case 'U':
+  case 'u':
     return GetTop();
   case 'v':
   case  'B':
   case 'b':
   case 'S':
   case 's':
+  case 'D':
+  case 'd':
     return GetBottom();
   default:
     assert("Invalid direction");
     return {};
   }
+};
+
+AOC::Point AOC::Point::GetNeighbour(const string & direction) 
+{
+  auto neighbour = *this;
+  for (auto to : direction)
+    neighbour = neighbour.GetNeighbour(to);
+
+  return neighbour;
 };
 
 vector<AOC::Point> AOC::Point::GetDirectNeighbours() 

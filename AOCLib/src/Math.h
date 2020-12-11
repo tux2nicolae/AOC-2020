@@ -21,6 +21,8 @@ namespace AOC
     Point GetBottom();
 
     Point GetNeighbour(const char direction);
+    Point GetNeighbour(const string & direction);
+
     vector<Point> GetDirectNeighbours();
     vector<Point> GetAllNeighbours();
 

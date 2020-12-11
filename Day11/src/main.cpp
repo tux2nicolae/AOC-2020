@@ -48,47 +48,12 @@ pair<int, int> CountAllNeighbours(const vector<string>& lines, AOC::Point curren
   int countL = 0;
   int countH = 0;
 
-  // left
-  auto left = current.GetLeft();
-  while (CountSeat(lines, left, countL, countH))
-    left = left.GetLeft();
-
-  // righ
-  auto right = current.GetRight();
-  while (CountSeat(lines, right, countL, countH))
-    right = right.GetRight();
-
-  // up
-  auto up = current.GetTop();
-  while (CountSeat(lines, up, countL, countH))
-    up = up.GetTop();
-
-  // down
-  auto down = current.GetBottom();
-  while (CountSeat(lines, down, countL, countH))
-    down = down.GetBottom();
-
-  //-------------
-
-  // up left
-  auto upLeft = current.GetTop().GetLeft();
-  while (CountSeat(lines, upLeft, countL, countH))
-    upLeft = upLeft.GetTop().GetLeft();
-
-  // up right
-  auto upRight = current.GetTop().GetRight();
-  while (CountSeat(lines, upRight, countL, countH))
-    upRight = upRight.GetTop().GetRight();
-
-  // down left
-  auto downLeft = current.GetBottom().GetLeft();
-  while (CountSeat(lines, downLeft, countL, countH))
-    downLeft = downLeft.GetBottom().GetLeft();
-
-  // down right
-  auto downRight = current.GetBottom().GetRight();
-  while (CountSeat(lines, downRight, countL, countH))
-    downRight = downRight.GetBottom().GetRight();
+  for (const auto& direction : { "U", "UR", "R", "BR", "B", "BL", "L", "UL" })
+  {
+    auto next = current.GetNeighbour(direction);
+    while (CountSeat(lines, next, countL, countH))
+      next = next.GetNeighbour(direction);
+  }
 
   return make_pair(countL, countH);
 }
@@ -126,6 +91,6 @@ int main()
     return acc + accumulate(begin(line), end(line), 0, [](int acc, const char c) {return acc + (c == '#'); });
   });
 
-  cout << endl << count;
+  cout << count << endl;
   return 0;
 }
