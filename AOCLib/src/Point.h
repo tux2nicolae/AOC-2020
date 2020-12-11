@@ -8,12 +8,10 @@ namespace AOC
 {
   struct Point
   {
-    Point();
-    Point(int x, int y);
-    Point(int x, int y, int z);
-
     bool operator==(const Point& second) const;
     bool operator<(const Point& second) const;
+
+    bool IsInBoundary(const Point& from, const Point& to);
 
     Point GetLeft();
     Point GetRight();
@@ -31,8 +29,14 @@ namespace AOC
     vector<Point> GetDirectNeighbours();
     vector<Point> GetAllNeighbours();
 
-    int x{ 0 };
-    int y{ 0 };
-    int z{ 0 };
+    long long x{ 0 };
+    long long y{ 0 };
+    long long z{ 0 };
+  };
+
+  template<typename T = long long, typename... Args>
+  Point MakePoint(Args... args)
+  {
+    return Point{ static_cast<T>(args)... };
   };
 }

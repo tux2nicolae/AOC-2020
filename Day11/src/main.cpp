@@ -25,7 +25,7 @@ using namespace std;
 
 bool CountSeat(const vector<string> & lines, AOC::Point neighbour, int& countL, int & countH)
 {
-  if (neighbour.x < 0 || neighbour.y < 0 || neighbour.x >= lines[0].size() || neighbour.y >= lines.size())
+  if (!neighbour.IsInBoundary(AOC::MakePoint(0, 0), AOC::MakePoint(lines[0].size() - 1, lines.size() - 1)))
     return false;
 
   if (lines[neighbour.y][neighbour.x] == 'L')
@@ -73,7 +73,7 @@ int main()
     {
       for (int x = 0; x < lines[0].size(); ++x)
       {
-        auto [countL, countH] = CountAllNeighbours(lines, AOC::Point{x, y});
+        auto [countL, countH] = CountAllNeighbours(lines, AOC::Point{ x, y });
 
         if (lines[y][x] == 'L' && countH == 0)
           nextLines[y][x] = '#';

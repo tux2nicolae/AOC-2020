@@ -5,6 +5,7 @@
 #include "pch.h"
 #include "Algorithm.h"
 #include "Math.h"
+#include "Point.h"
 
 //--------------------------------------------------------------------------
 // implementation details

@@ -5,29 +5,20 @@
 #include "pch.h"
 #include "Point.h"
 
-AOC::Point::Point()
-{
-}
-
-AOC::Point::Point(int x, int y)
-  : x(x), y(y)
-{
-}
-
-AOC::Point::Point(int x, int y, int z)
-  : x(x), y(y), z(z)
-{
-}
-
 bool AOC::Point::operator==(const Point& second) const
 {
   return tie(x, y, z) == tie(second.x, second.y, second.z);
-};
+}
 
 bool AOC::Point::operator<(const Point& second) const
 {
   return tie(x, y, z) < tie(second.x, second.y, second.z);
-};
+}
+bool AOC::Point::IsInBoundary(const Point& from, const Point& to)
+{
+  return (x >= from.x && y >= from.y && z >= from.z
+    && x <= to.x && y <= to.y && z <= to.z);
+}
 
 AOC::Point AOC::Point::GetLeft()
 {
@@ -104,7 +95,7 @@ AOC::Point AOC::Point::GetNeighbour(const char direction) {
     assert("Invalid direction");
     return {};
   }
-};
+}
 
 AOC::Point AOC::Point::GetNeighbour(const string& direction)
 {
@@ -113,7 +104,7 @@ AOC::Point AOC::Point::GetNeighbour(const string& direction)
     neighbour = neighbour.GetNeighbour(to);
 
   return neighbour;
-};
+}
 
 vector<AOC::Point> AOC::Point::GetDirectNeighbours()
 {

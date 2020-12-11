@@ -4,13 +4,14 @@
  */
 #include "pch.h"
 #include "Math.h"
+#include "Point.h"
 
 long long AOC::Abs(long long number)
 {
   return number > 0 ? number : -number;
 }
 
-long long AOC::ManhattenDistance(int x1, int y1, int x2, int y2)
+long long AOC::ManhattenDistance(long long x1, long long y1, long long x2, long long y2)
 {
   return Abs(x1 - x2) + Abs(y1 - y2);
 }
