@@ -28,6 +28,9 @@
     <ClCompile Include="..\src\Point.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Ship.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Algorithm.h">
@@ -52,6 +55,9 @@
     <ClInclude Include="..\src\AOCLib.h" />
     <ClInclude Include="..\src\Examples.h" />
     <ClInclude Include="..\src\Point.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Ship.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

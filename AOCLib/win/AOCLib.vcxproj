@@ -25,6 +25,7 @@
     <ClCompile Include="..\src\Math.cpp" />
     <ClCompile Include="..\src\Parse.cpp" />
     <ClCompile Include="..\src\Point.cpp" />
+    <ClCompile Include="..\src\Ship.cpp" />
     <ClCompile Include="..\src\Time.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -42,6 +43,7 @@
     <ClInclude Include="..\src\Math.h" />
     <ClInclude Include="..\src\Parse.h" />
     <ClInclude Include="..\src\Point.h" />
+    <ClInclude Include="..\src\Ship.h" />
     <ClInclude Include="..\src\Time.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
