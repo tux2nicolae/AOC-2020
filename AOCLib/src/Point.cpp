@@ -117,4 +117,32 @@ vector<AOC::Point> AOC::Point::GetAllNeighbours()
     GetBottom(), GetBottomLeft(), GetLeft(), GetTopLeft() };
 }
 
+void AOC::Point::RotateRight(const Point& origin)
+{
+  AOC::Point newPosition = *this;
+
+  // translate to origin
+  newPosition.x -= origin.x;
+  newPosition.y -= origin.y;
+  newPosition.z -= origin.z;
+
+  // rotate
+  newPosition = { -1 * newPosition.y, newPosition.x, newPosition.z };
+
+  // translate back
+  newPosition.x += origin.x;
+  newPosition.y += origin.y;
+  newPosition.z += origin.z;
+
+  *this = newPosition;
+}
+
+void AOC::Point::RotateLeft(const Point& origin)
+{
+  // 270 degree right rotation
+  RotateRight();
+  RotateRight();
+  RotateRight();
+}
+
 //------------------------------------------------------------

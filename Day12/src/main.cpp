@@ -125,12 +125,12 @@ struct Ship
 
   void TurnWaypointRight()
   {
-    waypoint = { -1 * waypoint.y, waypoint.x };
+    waypoint.RotateRight();
   }
 
   void TurnWaypointLeft()
   {
-    waypoint = { waypoint.y, -1 * waypoint.x };
+    waypoint.RotateLeft();
   }
 
   void MoveForwardToWaypoint(int step)
@@ -231,7 +231,6 @@ int main()
       break;
     }
   };
-
 
   cout << AOC::ManhattenDistance(AOC::Point{0,0}, part1.GetPosition()) << endl;
   cout << AOC::ManhattenDistance(AOC::Point{0,0}, part2.GetPosition()) << endl;

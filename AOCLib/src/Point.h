@@ -29,6 +29,9 @@ namespace AOC
     vector<Point> GetDirectNeighbours();
     vector<Point> GetAllNeighbours();
 
+    void RotateRight(const Point& origin = { 0, 0 });
+    void RotateLeft(const Point& origin = { 0, 0 });
+
     long long x{ 0 };
     long long y{ 0 };
     long long z{ 0 };
