@@ -121,7 +121,7 @@ void AOC::Point::RotateRight(const Point& origin)
 {
   AOC::Point newPosition = *this;
 
-  // translate to origin
+  // translate to OXY
   newPosition.x -= origin.x;
   newPosition.y -= origin.y;
   newPosition.z -= origin.z;
