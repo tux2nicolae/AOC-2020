@@ -42,66 +42,6 @@ std::vector<bool> AOC::Eratosthenes(size_t n)
   return sieve;
 }
 
-pair<vector<vector<int>>, set<int>> AOC::Lee(const vector<Point> & aCoordonates, vector<vector<int>> & aMap)
-{
-  set<int> infinitePoints;
-
-  vector<vector<int>> distances;
-  distances.resize(aMap.size());
-  for (auto & line : distances)
-    line.resize(aMap[0].size());
-  
-  queue<Point> unvisited;
-  for (const auto & startingPoint : aCoordonates)
-    unvisited.push(startingPoint);
-
-  auto isInBoundary = [&](const Point & to)-> bool
-  {
-    return !(to.x < 0 || to.y < 0 || to.x >= aMap.size() || to.y >= aMap[0].size());
-  };
-
-  // run
-  while (!unvisited.empty())
-  {
-    auto from = unvisited.front();
-    unvisited.pop();
-
-    if (aMap[from.x][from.y] == -1)
-      continue;
-
-    static const int directionX[4] = { -1,  0, 1, 0 };
-    static const int directionY[4] = { 0,  1, 0, -1 };
-
-    for (int i = 0; i < 4; ++i)
-    {
-      Point to;
-      to.x = from.x + directionX[i];
-      to.y = from.y + directionY[i];
-
-      if (!isInBoundary(to))
-      {
-        infinitePoints.insert(aMap[from.x][from.y]);
-        continue;
-      }
-
-      if (aMap[to.x][to.y])
-      {
-        if(distances[to.x][to.y] == distances[from.x][from.y] + 1 && aMap[from.x][from.y] != aMap[to.x][to.y])
-          aMap[to.x][to.y] = -1;
-
-        continue;
-      }
-
-      aMap[to.x][to.y] = aMap[from.x][from.y];
-      distances[to.x][to.y] = distances[from.x][from.y] + 1;
-
-      unvisited.push(to);
-    }
-  }
-
-  return { distances, infinitePoints };
-}
-
 vector<long long> AOC::GetPartialSums(const vector<long long>& sequence)
 {
   vector<long long> sums;
@@ -198,6 +138,77 @@ vector<vector<long long>> AOC::MultiplyMatrix(const vector<vector<long long>> & 
 
   return temp;
 }
+
+/**
+* Only coprime numbers (numbers that share no prime factors)
+*/
+long long AOC::InvMod(long long n, long long modulo)
+{
+  return 0;
+}
+
+pair<vector<vector<int>>, set<int>> AOC::Lee(const vector<Point>& aCoordonates, vector<vector<int>>& aMap)
+{
+  set<int> infinitePoints;
+
+  vector<vector<int>> distances;
+  distances.resize(aMap.size());
+  for (auto& line : distances)
+    line.resize(aMap[0].size());
+
+  queue<Point> unvisited;
+  for (const auto& startingPoint : aCoordonates)
+    unvisited.push(startingPoint);
+
+  auto isInBoundary = [&](const Point& to)-> bool
+  {
+    return !(to.x < 0 || to.y < 0 || to.x >= aMap.size() || to.y >= aMap[0].size());
+  };
+
+  // run
+  while (!unvisited.empty())
+  {
+    auto from = unvisited.front();
+    unvisited.pop();
+
+    if (aMap[from.x][from.y] == -1)
+      continue;
+
+    static const int directionX[4] = { -1,  0, 1, 0 };
+    static const int directionY[4] = { 0,  1, 0, -1 };
+
+    for (int i = 0; i < 4; ++i)
+    {
+      Point to;
+      to.x = from.x + directionX[i];
+      to.y = from.y + directionY[i];
+
+      if (!isInBoundary(to))
+      {
+        infinitePoints.insert(aMap[from.x][from.y]);
+        continue;
+      }
+
+      if (aMap[to.x][to.y])
+      {
+        if (distances[to.x][to.y] == distances[from.x][from.y] + 1 && aMap[from.x][from.y] != aMap[to.x][to.y])
+          aMap[to.x][to.y] = -1;
+
+        continue;
+      }
+
+      aMap[to.x][to.y] = aMap[from.x][from.y];
+      distances[to.x][to.y] = distances[from.x][from.y] + 1;
+
+      unvisited.push(to);
+    }
+  }
+
+  return { distances, infinitePoints };
+}
+
+//--------------------------------------------------------------------------------
+// implementation details
 
 namespace AOC::detail
 {

@@ -17,4 +17,5 @@ namespace AOC
   // amb|blu|brn|gry|grn|hzl|oth
   // [0-9]{9}
   // (.*) units each with (.*) hit points (.*)with an attack that does (.*) (.*) damage at initiative (.*)
+  // mem\\[([0-9]*)\\] = ([0-9]*)
 }
