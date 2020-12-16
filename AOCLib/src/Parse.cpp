@@ -18,6 +18,16 @@ std::vector<std::string> AOC::Explode(const std::string& str, char separator)
   return result;
 }
 
+std::vector<std::string> AOC::Explode(const std::string& str, const string & regexSeparator)
+{
+  regex reg(regexSeparator);
+
+  sregex_token_iterator iter(str.begin(), str.end(), reg, -1);
+  sregex_token_iterator end;
+
+  return { iter, end };
+}
+
 int AOC::ExtractInt(const string& str, const string& regexStr)
 {
   smatch match;

@@ -7,6 +7,7 @@
 namespace AOC
 {
   vector<string> Explode(const string& str, char separator);
+  vector<string> Explode(const string& str, const string & regexSeparator);
 
   int ExtractInt(const string& str, const string& regexStr = "(.*)");
   vector<string> ExtractMatches(const string& str, const string& regexStr = "(.*)");

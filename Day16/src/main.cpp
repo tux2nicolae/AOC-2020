@@ -25,6 +25,29 @@ using namespace std;
 
 #include "../../AOCLib/src/AOCLib.h"
 
+struct Rule
+{
+  string name;
+
+  int min = 0;
+  int max = 0;
+
+  int orMin = 0;
+  int orMax = 0;
+};
+
+struct Ticket
+{
+  bool valid = true;
+  vector<int> fields;
+};
+
+struct FieldCandidates
+{
+  int fieldId;
+  vector<Rule> posibleRules;
+};
+
 int main()
 {
   ifstream in("..\\..\\Day16\\src\\_Input.in");
@@ -33,27 +56,20 @@ int main()
   FStreamReader reader(in);
   auto lines = reader.ReadLines();
 
-  struct Rule
-  {
-    string name;
-
-    int min = 0;
-    int max = 0;
-
-    int orMin = 0;
-    int orMax = 0;
-  };
-
-  vector<Rule> rules;
+  int lineIndex = 0;
 
   // parse rules
-  for (int i = 0; i < 20; ++i)
+  vector<Rule> rules;
+  while (true)
   {
-    auto& line = lines[i];
+    auto& line = lines[lineIndex++];
+    if (line.empty())
+      break;
+
     auto rulesSplit = AOC::Explode(line, ':');
     assert(rulesSplit.size() == 2);
 
-    auto rulesStr = AOC::Explode(rulesSplit[1], ',');
+    auto rulesStr = AOC::Explode(rulesSplit[1], " or ");
     assert(rulesStr.size() == 2);
 
     auto minmax = AOC::Explode(rulesStr[0], '-');
@@ -66,33 +82,44 @@ int main()
     rules.push_back(rule);
   }
 
-  // parse nearby tickets 
-  struct Ticket
-  {
-    bool valid = true;
-    vector<int> fields;
-  };
+  assert(lines[lineIndex++] == "your ticket:");
 
-  vector<Ticket> nearbyTickets;
-  for (int i = 25; i < lines.size(); ++i)
+  auto myTicketStrFields = AOC::Explode(lines[lineIndex++], ',');
+
+  assert(lines[lineIndex++] == "");
+  assert(lines[lineIndex++] == "nearby tickets:");
+
+  // parse my ticket
+  Ticket myTicket;
+
+  transform(begin(myTicketStrFields), end(myTicketStrFields), back_inserter(myTicket.fields),
+    [](const string& fieldStr) { return stoi(fieldStr.c_str()); });
+
+  vector<Ticket> allTickets;
+  allTickets.push_back(myTicket);
+
+  // parse nearby tickets 
+  for(; lineIndex < lines.size(); lineIndex++)
   {
-    auto& line = lines[i];
+    auto& line = lines[lineIndex];
     if (line.empty())
       continue;
 
-    auto numbers = AOC::Explode(line, ',');
+    auto strFields = AOC::Explode(line, ',');
 
     Ticket ticket;
-    for (auto numberStr : numbers)
-      ticket.fields.push_back(atoi(numberStr.c_str()));
 
-    nearbyTickets.push_back(ticket);
+    transform(begin(strFields), end(strFields), back_inserter(ticket.fields),
+      [](const string& fieldStr) { return stoi(fieldStr.c_str()); });
+
+    allTickets.push_back(ticket);
   }
 
+  // search invaid tickets
   int invalidNumbersSum = 0;
-  for (auto & nearbyTicket : nearbyTickets)
+  for (auto & ticket : allTickets)
   {
-    for(auto & ticketField : nearbyTicket.fields)
+    for(auto & ticketField : ticket.fields)
     {
       int validRules = 0;
 
@@ -109,35 +136,21 @@ int main()
       if (validRules == 0)
       {
         invalidNumbersSum += ticketField;
-        nearbyTicket.valid = false;
+        ticket.valid = false;
       }
     }
   }
 
   // discard invalid tickets
-  nearbyTickets.erase(std::remove_if(nearbyTickets.begin(), nearbyTickets.end(), 
+  allTickets.erase(std::remove_if(allTickets.begin(), allTickets.end(),
     [](const Ticket & ticket)
     {
       return !ticket.valid;
-    }), nearbyTickets.end());
+    }), 
+    allTickets.end());
 
-  // add my ticket
-  Ticket myTicket;
-  myTicket.valid = true;
-  myTicket.fields = { 157,73,79,191,113,59,109,61,103,101,67,193,97,179,107,89,53,71,181,83 };
-
-  nearbyTickets.push_back(myTicket);
-
-  // fieldId, rules
-  struct FieldCandidates
-  {
-    int fieldId;
-    vector<Rule> posibleRules;
-  };
-
+  // gather all candidates
   vector<FieldCandidates> candidates;
-
-  // part 2
   for (auto fieldId = 0; fieldId < myTicket.fields.size(); fieldId++)
   {
     FieldCandidates fieldCandidates;
@@ -146,7 +159,7 @@ int main()
     for (const auto & rule : rules)
     {
       int validTickets = 0;
-      for (auto& ticket : nearbyTickets)
+      for (auto& ticket : allTickets)
       {
         // is valid
         if ((rule.min <= ticket.fields[fieldId] && ticket.fields[fieldId] <= rule.max) ||
@@ -156,25 +169,26 @@ int main()
         }
       }
 
-      if(validTickets == nearbyTickets.size())
+      if(validTickets == allTickets.size())
         fieldCandidates.posibleRules.push_back(rule);
     }
 
     candidates.push_back(fieldCandidates);
   }
 
+  // sort
   sort(begin(candidates), end(candidates),
     [](const FieldCandidates& first, const FieldCandidates& second)
     {
       return first.posibleRules.size() < second.posibleRules.size();
     });
 
+  // process unique candidates
   for (auto [i, j] : AOC::GenerateIndexCombinations<2>(candidates.size()))
   {
     auto& currentCandidateRules = candidates[i].posibleRules;
     assert(currentCandidateRules.size() == 1);
   
-    // remove rules from second
     auto& nextCandidateRules = candidates[j].posibleRules;
     nextCandidateRules.erase(remove_if(begin(nextCandidateRules), end(nextCandidateRules), 
       [&](const Rule & rule) {
@@ -183,6 +197,7 @@ int main()
       nextCandidateRules.end());
   }
 
+  // process departure products
   long long departureProduct = 1;
   for (auto [decodedFieldId, rules] : candidates)
   {
@@ -191,12 +206,9 @@ int main()
 
     if (rule.name.find("departure") != string::npos)
     {
-      cout << rule.name << ":" << myTicket.fields[decodedFieldId] << endl;
       departureProduct *= myTicket.fields[decodedFieldId];
     }
   }
-
-  cout << endl;
 
   cout << invalidNumbersSum << endl;
   cout << departureProduct << endl;
