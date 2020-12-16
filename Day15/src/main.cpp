@@ -49,7 +49,9 @@ int main()
     step++;
   }
 
-  //
+  // part 1
+  // just change 30000000 with 2020
+
   while (step <= 30000000)
   {
     if (lastSpokenAge + 1 == step)
