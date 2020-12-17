@@ -28,6 +28,8 @@ namespace AOC
 
     vector<Point> GetDirectNeighbours();
     vector<Point> GetAllNeighbours();
+    vector<Point> GetAll3DNeighbours() const;
+    vector<Point> GetAll4DNeighbours() const;
 
     void RotateRight(const Point& origin = { 0, 0 });
     void RotateLeft(const Point& origin = { 0, 0 });
@@ -35,6 +37,7 @@ namespace AOC
     long long x{ 0 };
     long long y{ 0 };
     long long z{ 0 };
+    long long w{ 0 };
   };
 
   template<typename T = long long, typename... Args>

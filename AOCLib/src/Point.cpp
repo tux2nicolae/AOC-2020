@@ -7,12 +7,12 @@
 
 bool AOC::Point::operator==(const Point& second) const
 {
-  return tie(x, y, z) == tie(second.x, second.y, second.z);
+  return tie(x, y, z, w) == tie(second.x, second.y, second.z, second.w);
 }
 
 bool AOC::Point::operator<(const Point& second) const
 {
-  return tie(x, y, z) < tie(second.x, second.y, second.z);
+  return tie(x, y, z, w) < tie(second.x, second.y, second.z, second.w);
 }
 bool AOC::Point::IsInBoundary(const Point& from, const Point& to)
 {
@@ -22,22 +22,22 @@ bool AOC::Point::IsInBoundary(const Point& from, const Point& to)
 
 AOC::Point AOC::Point::GetLeft()
 {
-  return { x - 1, y, z };
+  return { x - 1, y, z, w };
 }
 
 AOC::Point AOC::Point::GetRight()
 {
-  return { x + 1, y, z };
+  return { x + 1, y, z, w };
 }
 
 AOC::Point AOC::Point::GetTop()
 {
-  return { x, y - 1, z };
+  return { x, y - 1, z, w };
 }
 
 AOC::Point AOC::Point::GetBottom()
 {
-  return { x, y + 1, z };
+  return { x, y + 1, z, w };
 }
 
 AOC::Point AOC::Point::GetTopLeft()
@@ -115,6 +115,60 @@ vector<AOC::Point> AOC::Point::GetAllNeighbours()
 {
   return { GetTop(), GetTopRight(), GetRight(), GetBottomRight(),
     GetBottom(), GetBottomLeft(), GetLeft(), GetTopLeft() };
+}
+
+vector<AOC::Point> AOC::Point::GetAll3DNeighbours() const
+{
+  vector<AOC::Point> neighbours;
+
+  AOC::Point nextSlice = *this;
+  for (long long nextZ : {z - 1, z - 0, z + 1})
+  {
+    nextSlice.z = nextZ;
+
+    auto currentNeighbours = nextSlice.GetAllNeighbours();
+    copy(begin(currentNeighbours), end(currentNeighbours), back_inserter(neighbours));
+  }
+
+  // neighbours
+  nextSlice = *this;
+  nextSlice.z = z - 1;
+
+  neighbours.push_back(nextSlice);
+
+  nextSlice = *this;
+  nextSlice.z = z + 1;
+
+  neighbours.push_back(nextSlice);
+
+  return neighbours;
+}
+
+vector<AOC::Point> AOC::Point::GetAll4DNeighbours() const
+{
+  vector<AOC::Point> neighbours;
+
+  AOC::Point nextSlice = *this;
+  for (long long nextW : {w - 1, w - 0, w + 1})
+  {
+    nextSlice.w = nextW;
+
+    auto currentNeighbours = nextSlice.GetAll3DNeighbours();
+    copy(begin(currentNeighbours), end(currentNeighbours), back_inserter(neighbours));
+  }
+
+  // neighbours
+  nextSlice = *this;
+  nextSlice.w = w - 1;
+
+  neighbours.push_back(nextSlice);
+
+  nextSlice = *this;
+  nextSlice.w = w + 1;
+
+  neighbours.push_back(nextSlice);
+
+  return neighbours;
 }
 
 void AOC::Point::RotateRight(const Point& origin)
