@@ -39,7 +39,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day15", "..\Day15\win\Day15
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day16", "..\Day16\win\Day16.vcxproj", "{2AE59A9E-E6C9-4E34-9B8F-4CA9E68EC232}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day16", "..\Day17\win\Day16.vcxproj", "{45016307-2EC4-4B52-905B-1D2CA6D978AB}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Day17", "..\Day17\win\Day17.vcxproj", "{45016307-2EC4-4B52-905B-1D2CA6D978AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

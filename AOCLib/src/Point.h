@@ -27,7 +27,7 @@ namespace AOC
     Point GetNeighbour(const string& direction);
 
     vector<Point> GetDirectNeighbours();
-    vector<Point> GetAllNeighbours();
+    vector<Point> GetAll2DNeighbours();
     vector<Point> GetAll3DNeighbours() const;
     vector<Point> GetAll4DNeighbours() const;
 

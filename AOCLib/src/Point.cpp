@@ -111,7 +111,7 @@ vector<AOC::Point> AOC::Point::GetDirectNeighbours()
   return { GetTop(), GetRight(), GetBottom(), GetLeft() };
 }
 
-vector<AOC::Point> AOC::Point::GetAllNeighbours()
+vector<AOC::Point> AOC::Point::GetAll2DNeighbours()
 {
   return { GetTop(), GetTopRight(), GetRight(), GetBottomRight(),
     GetBottom(), GetBottomLeft(), GetLeft(), GetTopLeft() };
@@ -120,13 +120,14 @@ vector<AOC::Point> AOC::Point::GetAllNeighbours()
 vector<AOC::Point> AOC::Point::GetAll3DNeighbours() const
 {
   vector<AOC::Point> neighbours;
+  neighbours.reserve(26);
 
   AOC::Point nextSlice = *this;
   for (long long nextZ : {z - 1, z - 0, z + 1})
   {
     nextSlice.z = nextZ;
 
-    auto currentNeighbours = nextSlice.GetAllNeighbours();
+    auto currentNeighbours = nextSlice.GetAll2DNeighbours();
     copy(begin(currentNeighbours), end(currentNeighbours), back_inserter(neighbours));
   }
 
@@ -147,6 +148,7 @@ vector<AOC::Point> AOC::Point::GetAll3DNeighbours() const
 vector<AOC::Point> AOC::Point::GetAll4DNeighbours() const
 {
   vector<AOC::Point> neighbours;
+  neighbours.reserve(80);
 
   AOC::Point nextSlice = *this;
   for (long long nextW : {w - 1, w - 0, w + 1})
