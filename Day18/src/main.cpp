@@ -25,55 +25,7 @@ using namespace std;
 
 #include "../../AOCLib/src/AOCLib.h"
 
-long long EvaluatePart1(string& line, size_t & index) 
-{
-  // parse current number
-  auto getCurrentNumber = [&]() -> long long
-  {
-    int number = 0;
-
-    while (line[index] >= '0' && line[index] <= '9') {
-      number = number * 10 + line[index] - '0';
-      index++;
-    }
-
-    assert(number != 0);
-    return number;
-  };
-
-  // current number or evaluate paranthese
-  auto getNextNumber = [&]() -> long long
-  {
-    return line[index] == '(' ? EvaluatePart1(line, ++index)
-      : getCurrentNumber();
-  };
-
-  // iterate while * or +
-  long long number = getNextNumber();
-  while (index < line.size())
-  {
-
-    switch (line[index++])
-    {
-    case '+':
-      number += getNextNumber();
-      break;
-    case '*':
-      number *= getNextNumber();
-      break;
-    case ')':
-      return number;
-      break;
-    default:
-      assert(false);
-      break;
-    }
-  }
-  
-  return number;
-}
-
-long long EvaluatePart2(string& line, size_t& index)
+long long Evaluate(string& line, size_t & index, bool part1) 
 {
   // parse current number
   auto getCurrentNumber = [&]() -> long long
@@ -94,7 +46,7 @@ long long EvaluatePart2(string& line, size_t& index)
   {
     if (line[index] == '(')
     {
-      long long number = EvaluatePart2(line, ++index);
+      long long number = Evaluate(line, ++index, part1);
 
       assert(line[index++] == ')');
       return number;
@@ -116,14 +68,14 @@ long long EvaluatePart2(string& line, size_t& index)
       number += getNextNumber();
       break;
     case '*':
-      number *= EvaluatePart2(line, index);
+      number *= part1 ? getNextNumber() : Evaluate(line, index, part1);
       break;
     default:
       assert(false);
       break;
     }
   }
-
+  
   return number;
 }
 
@@ -146,10 +98,10 @@ int main()
       }), line.end());
 
     size_t index1 = 0;
-    sum1 += EvaluatePart1(line, index1);
+    sum1 += Evaluate(line, index1, true);
 
     size_t index2 = 0;
-    sum2 += EvaluatePart2(line, index2);
+    sum2 += Evaluate(line, index2, false);
   }
 
   cout << sum1 << endl << sum2 << endl;
