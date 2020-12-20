@@ -32,3 +32,16 @@ void FStreamWriter::WriteMatrix(const vector<vector<int>> & aMatrix)
     mFileStream << endl;
   }
 }
+
+void FStreamWriter::WriteMatrixAsGrid(const vector<vector<int>>& aMatrix)
+{
+  for (const auto& row : aMatrix)
+  {
+    for (const auto& element : row)
+    {
+      mFileStream << (element ? "#" : ".");
+    }
+
+    mFileStream << endl;
+  }
+}
