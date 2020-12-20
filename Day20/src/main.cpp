@@ -433,22 +433,31 @@ int main()
    { 2, 16 },
   };
 
-  finalMap.Flip();
 
+  int maxRotations = 10;
   int monsters = 0;
-  for (int i = 0; i < (finalMap.image.size() - seaMonster.size()); i++)
-  {
-    for (int j = 0; j < (finalMap.image.size() - seaMonster[0].size()); j++)
-    {
-      int sum = 0;
-      for (auto [di, dj] : digitalMonster)
-      {
-        if (finalMap.image[i + di][j + dj] == '#')
-          sum++;
-      }
 
-      if (sum == digitalMonster.size())
-        monsters++;
+  while(monsters == 0 && maxRotations--)
+  {
+    if (maxRotations == 5)
+      finalMap.Flip();
+
+    finalMap.Rotate();
+
+    for (int i = 0; i < (finalMap.image.size() - seaMonster.size()); i++)
+    {
+      for (int j = 0; j < (finalMap.image.size() - seaMonster[0].size()); j++)
+      {
+        int sum = 0;
+        for (auto [di, dj] : digitalMonster)
+        {
+          if (finalMap.image[i + di][j + dj] == '#')
+            sum++;
+        }
+
+        if (sum == digitalMonster.size())
+          monsters++;
+      }
     }
   }
 
@@ -467,15 +476,16 @@ int main()
     out << endl;
   }
 
-  cout << endl << total - 15 * digitalMonster.size() << endl;
 
   out << endl;
 
   FStreamWriter writter(out);
   writter.WriteMatrix(orderedImageTiles);
 
-  auto result = std::accumulate(begin(corners), end(corners), 1LL, std::multiplies<long long>());
-  cout << result;
+  auto resultPart1 = std::accumulate(begin(corners), end(corners), 1LL, std::multiplies<long long>());
+
+  cout << resultPart1 << endl;
+  cout << endl << total - monsters * digitalMonster.size() << endl;
 
   return 0;
 }
