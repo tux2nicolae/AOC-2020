@@ -11,6 +11,8 @@ namespace AOC
     bool operator==(const Point& second) const;
     bool operator<(const Point& second) const;
 
+    Point& operator+=(const Point& second);
+
     bool IsInBoundary(const Point& from, const Point& to);
 
     Point GetLeft();

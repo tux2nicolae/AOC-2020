@@ -14,6 +14,16 @@ bool AOC::Point::operator<(const Point& second) const
 {
   return tie(x, y, z, w) < tie(second.x, second.y, second.z, second.w);
 }
+
+AOC::Point& AOC::Point::operator+=(const AOC::Point& second)
+{
+  x += second.x;
+  y += second.y;
+  z += second.z;
+
+  return *this;
+}
+
 bool AOC::Point::IsInBoundary(const Point& from, const Point& to)
 {
   return (x >= from.x && y >= from.y && z >= from.z
