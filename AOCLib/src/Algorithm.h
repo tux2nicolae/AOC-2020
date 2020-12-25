@@ -24,6 +24,8 @@ namespace AOC
   vector<vector<long long>> MultiplyMatrix(const vector<vector<long long>>& first,
     const vector<vector<long long>>& second, long long modulo);
 
+  long long PowModulo(long long a, long long b, long long modulo);
+
   /**
    * Only coprime numbers (numbers that share no prime factors)
    */

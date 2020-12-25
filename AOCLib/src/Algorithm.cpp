@@ -139,11 +139,31 @@ vector<vector<long long>> AOC::MultiplyMatrix(const vector<vector<long long>> & 
   return temp;
 }
 
-/**
-* Only coprime numbers (numbers that share no prime factors)
-*/
+long long AOC::PowModulo(long long a, long long b, long long modulo)
+{
+  if (a == 0)
+    return 0;
+
+  if (b == 0)
+    return 1;
+
+  if (b % 2 == 0) {
+    long long half = PowModulo(a, b / 2, modulo);
+    return AOC::MultiplyModulo(half, half, modulo);
+  }
+  else {
+    long long previousPower = PowModulo(a, b - 1, modulo);
+    return AOC::MultiplyModulo(previousPower, a, modulo);
+  }
+}
+
 long long AOC::InvMod(long long n, long long modulo)
 {
+  n = n % modulo;
+  for (long long x = 1; x < modulo; x++)
+    if (MultiplyModulo(n, x, modulo) == 1)
+      return x;
+
   return 0;
 }
 
